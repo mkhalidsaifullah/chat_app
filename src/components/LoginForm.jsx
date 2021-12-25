@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
+import './Form.css';
 
-const projectID = '03dff7e4-6124-4ef2-9559-3709c2ab5c79';
+// const projectID = '03dff7e4-6124-4ef2-9559-3709c2ab5c79';
 
-const Modal = () => {
+const Modal = ({projectID}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,19 +12,22 @@ const Modal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const authObject = { 'Project-ID': projectID, 'User-Name': username, 'User-Secret': password };
+    const authObject = { 
+      'Project-ID': projectID, 
+      'User-Name': username, 
+      'User-Secret': password
+     };
 
-    try {
-      await axios.get('https://api.chatengine.io/chats', { headers: authObject });
-
+     await axios.get('https://api.chatengine.io/chats', { headers: authObject })
+     .then(()=>{
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
-
       window.location.reload();
       setError('');
-    } catch (err) {
-      setError('Invalid Credentials');
-    }
+     })
+     .catch(err => setError('Invalid Credentials'))
+
+
   };
 
   return (

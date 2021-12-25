@@ -2,12 +2,11 @@ import { ChatEngine } from 'react-chat-engine';
 import LoginForm from './components/LoginForm';
 import './App.css';
 
-const projectID = '03dff7e4-6124-4ef2-9559-3709c2ab5c79';
+const projectID = 'd492700a-5139-4188-a884-19cdf95ab1a7';
 
 const App = () => {
-  if (!localStorage.getItem('username')) return <LoginForm />;
+  if (!localStorage.getItem('username')) return <LoginForm projectID ={projectID}/>;
   
-  if (localStorage.getItem('username'))
   return (
     <ChatEngine
       height="100vh"
@@ -18,12 +17,5 @@ const App = () => {
     />
   );
 };
-
-//window.onunload = () => {
-   //Clear the local storage
-  // localStorage.clear();
-//}
-
-// infinite scroll, logout, more customizations...
 
 export default App;
